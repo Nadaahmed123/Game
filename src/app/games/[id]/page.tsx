@@ -1,4 +1,3 @@
-
 'use client';
 
 import { fetshGameDetails } from '@/lib/data';
@@ -52,8 +51,13 @@ interface Review {
   date: string;
 }
 
-export default function GameDetailsPage({ params }: { params: { id: number } }) {
-  const { id } = params; 
+interface PageProps {
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default function GameDetailsPage({ params }: PageProps) {
+  const { id } = params;
   const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState(true);
   const [animation, setAnimation] = useState(false);
@@ -88,7 +92,7 @@ export default function GameDetailsPage({ params }: { params: { id: number } }) 
   useEffect(() => {
     const fetchGame = async () => {
       try {
-        const data = await fetshGameDetails(id);
+        const data = await fetshGameDetails(Number(id));
         setGame(data);
       } catch (error) {
         console.error("Error fetching game:", error);
