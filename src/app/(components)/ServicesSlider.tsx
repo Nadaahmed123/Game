@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react";
+import Image from 'next/image';
 
 export default function ServicesSlider() {
     const images = [
@@ -54,11 +55,13 @@ export default function ServicesSlider() {
                   } bg-black/60 overflow-hidden`}
                   style={{ boxShadow: realIdx === current ? '0 0 32px 4px rgba(34,197,94,0.5)' : undefined }}
                 >
-                  <img
-                    src={img}
-                    alt={`service-${realIdx}`}
-                    className="object-cover w-full h-full rounded-2xl"
-                  />
+                 <Image
+  src={img}
+  alt={`service-${realIdx}`}
+  fill
+  className="object-cover rounded-2xl"
+/>
+
                 </div>
               );
             })}
