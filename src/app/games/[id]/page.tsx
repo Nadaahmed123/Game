@@ -1,4 +1,3 @@
-
 'use client';
 
 import { fetshGameDetails } from '@/lib/data';
@@ -11,11 +10,10 @@ import {
 import { Button } from '@/app/(components)/ui/button';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-import { Key, use } from 'react';
+import { Key, useState, useEffect, use } from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { useWishlist } from '@/app/context/WishlistContext';
 import { toast } from 'sonner';
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface Game {
@@ -52,9 +50,14 @@ interface Review {
   date: string;
 }
 
-export default function GameDetailsPage({ params }: { params: { id: string } }) {
-  const id = params.id;
-  console.log(id)
+interface Props {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export default function GameDetailsPage({ params }: Props) {
+  const { id } = use(params);
   
   const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState(true);
@@ -90,14 +93,18 @@ export default function GameDetailsPage({ params }: { params: { id: string } }) 
   useEffect(() => {
     const fetchGame = async () => {
       try {
+        setLoading(true);
         const data = await fetshGameDetails(id);
         setGame(data);
+        console.log('Game data:', data);
       } catch (error) {
         console.error("Error fetching game:", error);
+        setGame(null);
       } finally {
         setLoading(false);
       }
     };
+    
     fetchGame();
   }, [id]);
 
@@ -212,7 +219,7 @@ export default function GameDetailsPage({ params }: { params: { id: string } }) 
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">{game.title}</h1>
             <div className="flex flex-wrap gap-2 mb-6">
-              {game.genre.split(",").map((genre: string, index: Key) => (
+              {game.genre.split(",").map((genre: string, index: number) => (
                 <motion.span
                   key={index}
                   className="bg-muted px-3 py-1 rounded-full text-sm"
