@@ -14,9 +14,12 @@ export const metadata = {
   title: "Game App",
   description: "This is a game web app",
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+    ],
   },
 };
+
 
 export default function RootLayout({
   children,
