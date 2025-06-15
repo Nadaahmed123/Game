@@ -52,9 +52,8 @@ interface Review {
   date: string;
 }
 
-export default  function GameDetailsPage({ params }: { params: { id: string } }) {
-  console.log(params)
-  const { id } = use(params)
+export default function GameDetailsPage({ params }: { params: { id: string } }) {
+  const id = params.id;
   console.log(id)
   
   const [game, setGame] = useState<Game | null>(null);
