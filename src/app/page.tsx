@@ -85,10 +85,9 @@ export default function Home() {
   height={600}
   className="w-full h-full object-cover rounded-2xl border-4 border-green-700 shadow-xl"
   style={{ filter: "brightness(0.7)" }}
-  unoptimized // لأن الصور من خارج الدومين، أو أضف الدومين في next.config.js
+  unoptimized 
 />
 
-            {/* Overlay النصوص والزرار */}
             <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/40 rounded-2xl p-6">
               <h1
                 className="text-4xl md:text-5xl font-extrabold text-white text-center drop-shadow-lg tracking-tight"
@@ -187,7 +186,6 @@ export default function Home() {
                 height={300}
                 className="rounded-xl object-cover w-full h-55 bg-black/60 min-h-[220px] max-h-[260px]"
               />
-              {/* Overlay النص وزر show more وwishlist */}
               <div className="absolute inset-0 w-full flex flex-col items-center justify-center bg-black/80 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                 <h3
                   className="text-2xl w-80 text-center md:text-3xl font-extrabold text-white mb-4"
