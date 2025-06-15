@@ -1,10 +1,14 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { Gamepad2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
-export default function AuthErrorPage() {
+function AuthErrorContent() {
+  // This component will be rendered on the client
+  'use client';
+  
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
 
@@ -38,7 +42,7 @@ export default function AuthErrorPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background/50 backdrop-blur-sm p-4">
       <div className="absolute inset-0 bg-background/50 backdrop-blur-sm" />
-      
+
       <div className="z-10 w-full max-w-md">
         <div className="mb-8 flex flex-col items-center">
           <Link href="/" className="mb-2 flex items-center gap-1 text-2xl font-bold text-primary">
@@ -50,15 +54,15 @@ export default function AuthErrorPage() {
             {getErrorMessage(error)}
           </p>
         </div>
-        
+
         <div className="flex flex-col gap-4">
-          <Link 
+          <Link
             href="/auth/login"
             className="w-full text-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
           >
             Back to Login
           </Link>
-          <Link 
+          <Link
             href="/"
             className="w-full text-center px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors"
           >
@@ -68,4 +72,12 @@ export default function AuthErrorPage() {
       </div>
     </div>
   );
-} 
+}
+
+export default function AuthErrorPage() {
+  return (
+    <Suspense fallback={<div className="p-10 text-center">Loading error details...</div>}>
+      <AuthErrorContent />
+    </Suspense>
+  );
+}
