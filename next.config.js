@@ -9,6 +9,8 @@ const nextConfig = {
       "www.freetogame.com",
       "freetogame.com",
       "lh3.googleusercontent.com",
+      "img.youtube.com",       // Add this
+      "www.cairo24.com",       // Add this
     ],
   },
 };

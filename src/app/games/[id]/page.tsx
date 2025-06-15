@@ -1,3 +1,4 @@
+
 'use client';
 
 import { fetshGameDetails } from '@/lib/data';
@@ -10,7 +11,7 @@ import {
 import { Button } from '@/app/(components)/ui/button';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-import { Key } from 'react';
+import { Key, use } from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { useWishlist } from '@/app/context/WishlistContext';
 import { toast } from 'sonner';
@@ -51,13 +52,11 @@ interface Review {
   date: string;
 }
 
-interface PageProps {
-  params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-export default function GameDetailsPage({ params }: PageProps) {
-  const { id } = params;
+export default  function GameDetailsPage({ params }: { params: { id: string } }) {
+  console.log(params)
+  const { id } = use(params)
+  console.log(id)
+  
   const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState(true);
   const [animation, setAnimation] = useState(false);
@@ -92,7 +91,7 @@ export default function GameDetailsPage({ params }: PageProps) {
   useEffect(() => {
     const fetchGame = async () => {
       try {
-        const data = await fetshGameDetails(Number(id));
+        const data = await fetshGameDetails(id);
         setGame(data);
       } catch (error) {
         console.error("Error fetching game:", error);
