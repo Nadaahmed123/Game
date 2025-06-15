@@ -4,13 +4,20 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import connectDB from "@/lib/mongodb";
 import User from "@/models/User";
 
-// Extend the built-in session types
+// ✅ Extend the built-in session and token types
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
       emailVerified: boolean;
-    } & DefaultSession["user"]
+    } & DefaultSession["user"];
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id?: string;
+    emailVerified?: boolean;
   }
 }
 
@@ -24,7 +31,7 @@ export const authOptions: AuthOptions = {
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         try {
@@ -52,28 +59,28 @@ export const authOptions: AuthOptions = {
             emailVerified: user.emailVerified,
           };
         } catch (error) {
-          console.error("Auth error:", error);
-          throw error;
+          console.error("Authorize error:", error);
+          return null;
         }
-      }
-    })
+      },
+    }),
   ],
   session: {
     strategy: "jwt",
     maxAge: 1 * 24 * 60 * 60, // 1 day
   },
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.emailVerified = user.emailVerified;
+        token.emailVerified = (user as any).emailVerified;
       }
       return token;
     },
     async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id as string;
-        session.user.emailVerified = token.emailVerified as boolean;
+      if (token && session.user) {
+        session.user.id = token.id!;
+        session.user.emailVerified = !!token.emailVerified;
       }
       return session;
     },

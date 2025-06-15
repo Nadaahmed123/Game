@@ -2,8 +2,13 @@
 const nextConfig = {
   images: {
     domains: [
-      'www.freetogame.com',
-      'lh3.googleusercontent.com',
+      "png.pngtree.com",
+      "www.vga4a.com",
+      "img.pikbest.com",
+      "encrypted-tbn0.gstatic.com",
+      "www.freetogame.com",
+      "freetogame.com",
+      "lh3.googleusercontent.com",
     ],
   },
 };
