@@ -9,26 +9,34 @@ export async function POST(req: Request) {
     let body;
     try {
       body = await req.json();
-    } catch{
+    } catch {
       return NextResponse.json(
         { error: 'Invalid JSON in request body' },
         { status: 400 }
       );
     }
-    
+
     // Validate request body
     const result = registerSchema.safeParse(body);
     if (!result.success) {
       const formattedErrors = result.error.format();
       const errorMessages = Object.entries(formattedErrors)
         .filter(([key]) => key !== '_errors')
-        .map(([key, value]) => `${key}: ${value._errors.join(', ')}`)
+        .map(([key, value]) => {
+          if (Array.isArray(value)) {
+            return `${key}: ${value.join(', ')}`;
+          } else if (typeof value === 'object' && value !== null && '_errors' in value) {
+            return `${key}: ${(value as { _errors: string[] })._errors.join(', ')}`;
+          } else {
+            return `${key}: Unknown error`;
+          }
+        })
         .join('; ');
 
       return NextResponse.json(
-        { 
-          error: 'Validation failed', 
-          details: errorMessages || 'Invalid request data'
+        {
+          error: 'Validation failed',
+          details: errorMessages || 'Invalid request data',
         },
         { status: 400 }
       );
@@ -64,7 +72,6 @@ export async function POST(req: Request) {
         password,
       });
 
-      // Remove password from response
       const userWithoutPassword = {
         id: user._id,
         name: user.name,
@@ -74,9 +81,9 @@ export async function POST(req: Request) {
       };
 
       return NextResponse.json(
-        { 
-          message: 'User registered successfully', 
-          user: userWithoutPassword 
+        {
+          message: 'User registered successfully',
+          user: userWithoutPassword,
         },
         { status: 201 }
       );
@@ -89,10 +96,11 @@ export async function POST(req: Request) {
     }
   } catch (error: unknown) {
     console.error('Registration error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error occurred';
     return NextResponse.json(
       { error: 'Something went wrong', details: errorMessage },
       { status: 500 }
     );
   }
-} 
+}
