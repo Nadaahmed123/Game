@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image";
 import { useState } from "react";
 
 export default function HowWeWorkVideo() {
@@ -25,11 +26,14 @@ export default function HowWeWorkVideo() {
         
         {!playing ? (
           <>
-            <img
-              src={thumbnailUrl}
-              alt="Video thumbnail"
-              className="w-full h-[450px] object-cover relative z-10 rounded-2xl border-4 border-green-500 shadow-xl"
-            />
+             <Image
+            src={thumbnailUrl}
+            alt="Video thumbnail"
+            width={900}
+            height={450}
+            className="w-full h-[450px] object-cover relative z-10 rounded-2xl border-4 border-green-500 shadow-xl"
+            priority
+          />
             <button
               className="absolute cursor-pointer left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-500 hover:bg-green-600 text-white rounded-full w-20 h-20 flex items-center justify-center shadow-2xl border-4 border-white/30 transition-all duration-300 z-20 ring-4 ring-green-300/40"
               aria-label="Play Video"

@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image";
 import { useState } from "react";
 
 export default function VideoWithPlayButton() {
@@ -14,11 +15,8 @@ export default function VideoWithPlayButton() {
       <div className="relative w-[520px] h-[380px] rounded-2xl overflow-hidden flex items-center justify-center border-4 border-green-500">
         {!playing ? (
           <>
-            <img
-              src={thumbnailUrl}
-              alt="Video thumbnail"
-              className="w-full h-full object-cover"
-            />
+            <Image src={thumbnailUrl} alt="Video Thumbnail" width={800} height={450} />
+
             <button
               className="absolute cursor-pointer left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-500 hover:bg-green-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg border-4 border-white/30 transition-all duration-300"
               aria-label="Play Video"

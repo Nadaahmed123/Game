@@ -8,6 +8,7 @@ import SharedButton from '@/app/(components)/shared/SharedButton';
 import Link from 'next/link';
 import { FaLinkedin } from 'react-icons/fa';
 import styles from './about.module.css';
+import Image from 'next/image';
 
 // بيانات فريق العمل
 const teamMembers = [
@@ -163,14 +164,18 @@ export default function About() {
                     whileHover={{ scale: 1.05 }}
                     className={styles.teamImage}
                   >
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="rounded-full object-cover w-24 h-24"
-                      onError={(e) => {
-                        e.currentTarget.src = `https://ui-avatars.com/api/?name=${member.name.replace(' ', '+')}&background=random`;
-                      }}
-                    />
+                    <Image
+  src={member.image}
+  alt={member.name}
+  width={96}
+  height={96}
+  className="rounded-full object-cover w-24 h-24"
+  onError={(e) => {
+    const target = e.currentTarget as HTMLImageElement;
+    target.src = `https://ui-avatars.com/api/?name=${member.name.replace(' ', '+')}&background=random`;
+  }}
+/>
+
                   </motion.div>
 
                   <h3 className="text-xl font-semibold mb-1">{member.name}</h3>

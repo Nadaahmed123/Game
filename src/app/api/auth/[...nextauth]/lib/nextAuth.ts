@@ -21,6 +21,15 @@ declare module "next-auth/jwt" {
   }
 }
 
+// ✅ Define a properly typed user
+interface ExtendedUser {
+  id: string;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  emailVerified?: boolean;
+}
+
 export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
@@ -72,8 +81,9 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.emailVerified = (user as any).emailVerified;
+        const extendedUser = user as ExtendedUser;
+        token.id = extendedUser.id;
+        token.emailVerified = extendedUser.emailVerified;
       }
       return token;
     },

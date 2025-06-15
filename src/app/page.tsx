@@ -78,12 +78,16 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/70 z-0" />
         <div className="relative z-10 w-full max-w-7xl mt-5">
           <div className="relative w-full h-[600px] flex items-center justify-center select-none">
-            <img
-              src={slides[current].image}
-              alt={slides[current].title}
-              className="w-full h-full object-cover rounded-2xl border-4 border-green-700 shadow-xl"
-              style={{ filter: "brightness(0.7)" }}
-            />
+            <Image
+  src={slides[current].image}
+  alt={slides[current].title}
+  width={1200} 
+  height={600}
+  className="w-full h-full object-cover rounded-2xl border-4 border-green-700 shadow-xl"
+  style={{ filter: "brightness(0.7)" }}
+  unoptimized // لأن الصور من خارج الدومين، أو أضف الدومين في next.config.js
+/>
+
             {/* Overlay النصوص والزرار */}
             <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/40 rounded-2xl p-6">
               <h1
