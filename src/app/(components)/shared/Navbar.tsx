@@ -154,6 +154,16 @@ export default function Navbar() {
                 Wishlist
               </div>
             </Link>
+            <Link
+              href="/about"
+              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-accent hover:text-accent-foreground"
+              onClick={toggleMenu}
+            >
+              <div className="flex items-center gap-2">
+                <Info className="w-4 h-4" />
+                About-Us
+              </div>
+            </Link>
 
             {status === "loading" && <p className="px-3 py-2">Loading...</p>}
 
