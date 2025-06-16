@@ -35,7 +35,7 @@ export default function RootLayout({
           <NextAuthProvider>
             <Navbar />
             <main className="pt-16">{children}</main>
-            <Toaster richColors position="top-center" />
+            <Toaster richColors position="bottom-right" />
             <Footer></Footer>
           </NextAuthProvider>
         </WishlistProvider>
