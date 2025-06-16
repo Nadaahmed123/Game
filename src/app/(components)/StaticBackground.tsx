@@ -11,15 +11,17 @@ const StaticBackground = ({ imageUrl }: { imageUrl: string }) => {
         src={imageUrl}
         alt="Background"
         fill
-        className="object-cover"
-        quality={80}
+        sizes="100vw"
+        className="object-cover object-center"
+        quality={60}
         priority
+        loading="eager"
         onError={(e) => {
           const target = e.currentTarget as HTMLImageElement;
           target.src = '/default-background.jpg';
         }}
       />
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/40 md:bg-black/50" />
     </div>
   );
 };
