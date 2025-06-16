@@ -99,32 +99,33 @@ export default function Home() {
                 {slides[current].desc}
               </p>
             </div>
-            {/* أزرار التنقل */}
-            <button
-              onClick={goToPrev}
-              className="absolute cursor-pointer left-2 top-1/2 -translate-y-1/2 bg-green-700/80 hover:bg-green-900 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg z-20 transition-all duration-300"
-              aria-label="Previous slide"
-            >
-              &#8592;
-            </button>
-            <button
-              onClick={goToNext}
-              className="absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 bg-green-700/80 hover:bg-green-900 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg z-20 transition-all duration-300"
-              aria-label="Next slide"
-            >
-              &#8594;
-            </button>
             {/* مؤشرات السلايدر */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-              {slides.map((_, idx) => (
-                <span
-                  key={idx}
-                  className={`block w-3 h-3 rounded-full ${
-                    idx === current ? "bg-green-400" : "bg-white/40"
-                  } border border-green-700`}
-                  style={{ transition: "background 0.3s" }}
-                />
-              ))}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4 z-20">
+              <button
+                onClick={goToPrev}
+                className="cursor-pointer bg-green-700/80 hover:bg-green-900 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all duration-300"
+                aria-label="Previous slide"
+              >
+                &#8592;
+              </button>
+              <div className="flex gap-2">
+                {slides.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`block w-3 h-3 rounded-full ${
+                      idx === current ? "bg-green-400" : "bg-white/40"
+                    } border border-green-700`}
+                    style={{ transition: "background 0.3s" }}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={goToNext}
+                className="cursor-pointer bg-green-700/80 hover:bg-green-900 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all duration-300"
+                aria-label="Next slide"
+              >
+                &#8594;
+              </button>
             </div>
           </div>
         </div>
