@@ -15,7 +15,7 @@ export default function WishlistPage() {
 
   return (
     <>
-      <StaticBackground imageUrl="https://www.cairo24.com/Upload/libfiles/79/4/940.jpg" />
+      <StaticBackground imageUrl="/cairo.jpg" />
       <div className="min-h-screen bg-background/75 text-foreground py-12 px-4 sm:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10">

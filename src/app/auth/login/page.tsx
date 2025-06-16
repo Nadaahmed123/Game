@@ -6,7 +6,7 @@ import StaticBackground from "@/app/(components)/StaticBackground";
 export default function LoginPage() {
   return (
     <>
-      <StaticBackground imageUrl="https://www.cairo24.com/Upload/libfiles/79/4/940.jpg" />
+      <StaticBackground imageUrl="/cairo.jpg" />
       <div className="flex min-h-screen flex-col items-center justify-center bg-background/0 backdrop-blur-sm p-4">
         <div className="absolute inset-0 bg-background/50 backdrop-blur-sm" />
         

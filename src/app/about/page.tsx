@@ -10,7 +10,7 @@ import styles from './about.module.css';
 import Image from 'next/image';
 import StaticBackground from '../(components)/StaticBackground';
 
-const backgroundImage = "https://www.cairo24.com/Upload/libfiles/79/4/940.jpg";
+const backgroundImage = "/cairo.jpg";
 // بيانات فريق العمل
 const teamMembers = [
   {

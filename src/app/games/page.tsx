@@ -99,7 +99,7 @@ export default function GamesPage() {
   };
   return (
     <>
-      <StaticBackground imageUrl="https://www.cairo24.com/Upload/libfiles/79/4/940.jpg" />
+      <StaticBackground imageUrl="/cairo.jpg" />
       <div className="min-h-screen p-8 sm:p-20 font-sans bg-background/75 text-foreground">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-8">
