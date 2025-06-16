@@ -7,9 +7,8 @@ export default function RegisterPage() {
     return (
       <>
       <StaticBackground imageUrl="/cairo.jpg" />
-        <div className="flex min-h-screen flex-col items-center justify-center bg-background/0 backdrop-blur-sm p-4">
-          <div className="absolute inset-0 bg-background/50 backdrop-blur-sm" />
-          
+            <div className="relative z-10 flex min-h-screen flex-col items-center justify-center p-4">
+        <div className="w-full max-w-md"/>
           <div className="z-10 w-full max-w-md">
             <div className="mb-8 flex flex-col items-center">
               <Link href="/" className="mb-2 flex items-center gap-1 text-2xl font-bold text-primary">

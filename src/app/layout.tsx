@@ -11,7 +11,7 @@ const orbitron = Orbitron({
 });
 
 export const metadata = {
-  title: "Game App",
+  title: "GameFroge",
   description: "This is a game web app",
   icons: {
     icon: [
