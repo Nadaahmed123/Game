@@ -5,10 +5,11 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import { useWishlist, Game } from '../context/WishlistContext';
 import GameCard from '../(components)/shared/GameCard';
 import { Button } from '@/app/(components)/ui/button';
-import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, Heart } from 'lucide-react';
 import { fetshAllData } from '@/lib/data';
 import { Input } from '@/app/(components)/ui/input';
 import Link from 'next/link';
+import StaticBackground from '../(components)/StaticBackground';
 
 interface ApiGame {
   id: number;
@@ -97,56 +98,73 @@ export default function GamesPage() {
     }
   };
   return (
-    <div className="min-h-screen p-8 sm:p-20 font-sans bg-background text-foreground">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">All Games</h1>
-          <div className="relative w-[300px]">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Search games..."
-              value={searchQuery}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
+    <>
+      <StaticBackground imageUrl="https://www.cairo24.com/Upload/libfiles/79/4/940.jpg" />
+      <div className="min-h-screen p-8 sm:p-20 font-sans bg-background/75 text-foreground">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold">All Games</h1>
+            <div className="relative w-[300px]">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Search games..."
+                value={searchQuery}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            {currentGames.map((game) => (
+              <div key={game.id} className="relative group">
+                <Link href={`/games/${game.id}`}>
+                  <GameCard
+                    {...game}
+                    isWishlisted={isWishlisted(game.id)}
+                    wishIcon={false}
+                  />
+                </Link>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => toggleWishlist(game)}
+                  className={`absolute top-3 right-3 z-10 h-10 w-10 rounded-full backdrop-blur-md transition-all duration-300 transform hover:scale-110 ${
+                    isWishlisted(game.id)
+                      ? 'bg-destructive/20 text-destructive hover:bg-destructive/30 shadow-lg shadow-destructive/20'
+                      : 'bg-background/80 hover:bg-destructive/10 hover:text-destructive shadow-md hover:shadow-lg'
+                  }`}
+                >
+                  <Heart className={`h-5 w-5 transition-transform duration-300 ${isWishlisted(game.id) ? 'fill-current scale-110' : 'group-hover:scale-110'}`} />
+                </Button>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-center items-center gap-4 mt-8">
+            <Button
+              variant="outline"
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="gap-2"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Previous
+            </Button>
+            <span className="text-sm">Page {currentPage} of {totalPages}</span>
+            <Button
+              variant="outline"
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="gap-2"
+            >
+              Next
+              <ChevronRight className="w-4 h-4" />
+            </Button>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-         {currentGames.map((game) => (
-            <Link key={game.id} href={`/games/${game.id}`}>
-              <GameCard
-                {...game}            
-                isWishlisted={isWishlisted(game.id)}
-                onWishlistToggle={() => toggleWishlist(game)}
-              />
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex justify-center items-center gap-4 mt-8">
-          <Button
-            variant="outline"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="gap-2"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Previous
-          </Button>
-          <span className="text-sm">Page {currentPage} of {totalPages}</span>
-          <Button
-            variant="outline"
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="gap-2"
-          >
-            Next
-            <ChevronRight className="w-4 h-4" />
-          </Button>
-        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,8 +1,9 @@
 import React from 'react'
+import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="mt-20 border-t pt-12 pb-6 text-sm text-muted-foreground bg-background">
+    <footer className="mt-0 border-t pt-12 pb-6 text-sm text-muted-foreground bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* About */}
         <div>
@@ -16,10 +17,11 @@ export default function Footer() {
         <div>
           <h3 className="text-base font-semibold text-foreground mb-2">Quick Links</h3>
           <ul className="space-y-1">
-            <li><a href="#" className="hover:underline">Home</a></li>
-            <li><a href="#" className="hover:underline">All Games</a></li>
-            <li><a href="#" className="hover:underline">Wishlist</a></li>
-            <li><a href="#" className="hover:underline">Contact</a></li>
+            <li><Link href="/" className="hover:underline">Home</Link></li>
+            <li><Link href="/games" className="hover:underline">All Games</Link></li>
+            <li><Link href="/watch-list" className="hover:underline">Wishlist</Link></li>
+            <li><Link href="/about" className="hover:underline">About Us</Link></li>
+            <li><Link href="/contact" className="hover:underline">Contact</Link></li>
           </ul>
         </div>
 

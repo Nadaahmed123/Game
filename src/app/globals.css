@@ -149,3 +149,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.pulse-animate {
+  animation: pulse 1.5s ease-in-out infinite;
+}
